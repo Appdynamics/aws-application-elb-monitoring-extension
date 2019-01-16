@@ -1,5 +1,4 @@
-### Version 1.2
-
-* Porting to aws-cloudwatch-exts-commons 2.0.0
-* config file extension changed from yaml to yml
-* filtering for load balancers based on namespace and dimensions
+### Version 1.0
+* This is a separate extension for Application Elb
+* Porting to aws-cloudwatch-exts-commons 2.0.1
+* filtering for load balancers based on namespace and dimensions added to the extension

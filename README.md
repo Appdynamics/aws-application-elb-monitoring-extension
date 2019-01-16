@@ -1,7 +1,7 @@
-# AppDynamics Monitoring Extension for use with AWS Classic Elastic Load Balancers
+# AppDynamics Monitoring Extension for use with AWS Application Elastic Load Balancers
 
 ## Use Case
-Captures Classic ELB statistics from Amazon CloudWatch and displays them in the AppDynamics Metric Browser.
+Captures Application ELB statistics from Amazon CloudWatch and displays them in the AppDynamics Metric Browser.
 
 ## Prerequisites
 1. Please give the following permissions to the account being used to with the extension.
@@ -37,15 +37,15 @@ The following is a step-by-step explanation of the configurable fields that are 
 
 1. If SIM is enabled, then use the following metricPrefix - 
 
-   `metricPrefix: "Custom Metrics|AWS ELB|"`
+   `metricPrefix: "Custom Metrics|AWS Application ELB|"`
     
    Else, configure the "**COMPONENT_ID**" under which the metrics need to be reported. This can be done by changing the value of `<COMPONENT_ID>` in
-   `metricPrefix: "Server|Component:<COMPONENT_ID>|Custom Metrics|AWS ELB|"`.
+   `metricPrefix: "Server|Component:<COMPONENT_ID>|Custom Metrics|AWS Application ELB|"`.
 
    For example,
          
     ```
-    metricPrefix: "Server|Component:100|Custom Metrics|AWS ELB|"
+    metricPrefix: "Server|Component:100|Custom Metrics|AWS Application ELB|"
     ```
 2. Provide **accessKey**(required) and **secretKey**(required) of your account(s), also provide **displayAccountName**(any name that represents your account) and
       **regions**(required). If you are running this extension inside an EC2 instance which has **IAM profile** configured then you don't have to configure **accessKey** and  **secretKey** values, extension will use **IAM profile** to authenticate. You can provide multiple accounts and regions as below - 
@@ -78,7 +78,7 @@ The following is a step-by-step explanation of the configurable fields that are 
       password:
     ```
 5. To report metrics from specific dimension values, configure the `dimesion` section. 
-Dimensions for AWS ELB are `AvailabilityZone` and `LoadBalancerName`. 
+Dimensions for AWS ELB are `AvailabilityZone`, `LoadBalancerName` and `TargetGroup`. 
 For example to report metrics only from only `AvailabilityZone` dimension with value `Sample`, configure `dimensions` as below -
 
     ```
@@ -166,9 +166,9 @@ If you get a valid output, that means your formatting is correct and you may mov
 
 
 ## Metrics
-Typical metric path: **Application Infrastructure Performance|\<Tier\>|Custom Metrics|Amazon ELB|\<Account Name\>|\<Region\>|Table Name|\<table name\>** followed by the metrics defined in the link below:
+Typical metric path: **Application Infrastructure Performance|\<Tier\>|Custom Metrics|Amazon Application ELB|\<Account Name\>|\<Region\>|Table Name|\<table name\>** followed by the metrics defined in the link below:
 
-- [ELB Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/elb-metricscollected.html)
+- [Application ELB Metrics](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-cloudwatch-metrics.html#load-balancer-metric-dimensions-alb)
 
 ## Credentials Encryption
 Please visit [this page](https://community.appdynamics.com/t5/Knowledge-Base/How-to-use-Password-Encryption-with-Extensions/ta-p/29397) to get detailed instructions on accountAccessKey encryption. The steps in this document will guide you through the whole process.
@@ -195,14 +195,14 @@ Please provide the following in order for us to assist you better.
    For any support related questions, you can also contact [help@appdynamics.com](mailto:help@appdynamics.com).
 
 ## Contributing
-Always feel free to fork and contribute any changes directly here on [GitHub](https://github.com/Appdynamics/aws-elb-monitoring-extension).
+Always feel free to fork and contribute any changes directly here on [GitHub](https://github.com/Appdynamics/aws-application-elb-monitoring-extension).
 
 ## Version
    |          Name            |  Version   |
    |--------------------------|------------|
-   |Extension Version         |1.2         |
+   |Extension Version         |1.0         |
    |Controller Compatibility  |4.4 or Later|
    |Last Update               |9th January, 2019 |
 
-List of changes to this extension can be found [here](https://github.com/Appdynamics/aws-elb-monitoring-extension/blob/master/CHANGELOG.md)
+List of changes to this extension can be found [here](https://github.com/Appdynamics/aws-application-elb-monitoring-extension/blob/master/CHANGELOG.md)
 

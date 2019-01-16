@@ -6,7 +6,7 @@
  *
  */
 
-package com.appdynamics.extensions.aws.elb;
+package com.appdynamics.extensions.aws.applicationelb;
 
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
 import com.appdynamics.extensions.aws.config.Dimension;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.LongAdder;
 
-import static com.appdynamics.extensions.aws.elb.Constants.AWS_NAMESPACE;
+import static com.appdynamics.extensions.aws.applicationelb.Constants.AWS_NAMESPACE;
 
 public class ELBMetricsProcessor implements MetricsProcessor {
     private List<IncludeMetric> includeMetrics;

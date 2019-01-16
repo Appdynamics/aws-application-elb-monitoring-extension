@@ -6,7 +6,7 @@
  *
  */
 
-package com.appdynamics.extensions.aws.elb;
+package com.appdynamics.extensions.aws.applicationelb;
 
 import com.appdynamics.extensions.aws.SingleNamespaceCloudwatchMonitor;
 import com.appdynamics.extensions.aws.collectors.NamespaceMetricStatisticsCollector;
@@ -14,10 +14,7 @@ import com.appdynamics.extensions.aws.config.Configuration;
 import com.appdynamics.extensions.aws.metric.processors.MetricsProcessor;
 import org.apache.log4j.Logger;
 
-import java.util.List;
-import java.util.Map;
-
-import static com.appdynamics.extensions.aws.elb.Constants.*;
+import static com.appdynamics.extensions.aws.applicationelb.Constants.*;
 
 /**
  * @author Bhuvnesh Kumar

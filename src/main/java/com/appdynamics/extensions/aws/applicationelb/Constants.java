@@ -6,7 +6,7 @@
  *
  */
 
-package com.appdynamics.extensions.aws.elb;
+package com.appdynamics.extensions.aws.applicationelb;
 
 /**
  * Created by bhuvnesh.kumar on 7/24/18.
@@ -15,7 +15,7 @@ public class Constants {
     public static final String MONITOR_NAME = "ELBMonitor";
     public static final String CUSTOM_METRICS = "Custom Metrics";
     public static final String AMAZON_SERVICE = "Amazon ELB";
-    public static final String AWS_NAMESPACE = "AWS/ELB";
+    public static final String AWS_NAMESPACE = "AWS/ApplicationELB";
     public static final String METRIC_SEPARATOR = "|";
 
 }

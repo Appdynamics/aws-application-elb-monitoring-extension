@@ -7,26 +7,26 @@
   -->
 
 <monitor>
-    <name>AWS ELB Monitor</name>
+    <name>AWS Application ELB Monitor</name>
     <type>managed</type>
-    <description>AWS ELB Monitoring Extension</description>
+    <description>AWS Application ELB Monitoring Extension</description>
     <monitor-configuration></monitor-configuration>
     <monitor-run-task>
         <execution-style>periodic</execution-style>
         <execution-frequency-in-seconds>60</execution-frequency-in-seconds>
-        <name>AWS ELB Monitor Run task</name>
-        <display-name>AWS ELB Monitor Run task</display-name>
-        <description>AWS ELB Monitor Run task</description>
+        <name>AWS Application ELB Monitor Run task</name>
+        <display-name>AWS Application ELB Monitor Run task</display-name>
+        <description>AWS Application ELB Monitor Run task</description>
         <type>java</type>
         <execution-timeout-in-secs>60</execution-timeout-in-secs>
 
         <task-arguments>
-            <argument name="config-file" is-required="true" default-value="monitors/AWSELBMonitor/config.yml"/>
+            <argument name="config-file" is-required="true" default-value="monitors/AWSApplicationELBMonitor/config.yml"/>
         </task-arguments>
 
         <java-task>
-            <classpath>aws-elb-monitoring-extension.jar</classpath>
-            <impl-class>com.appdynamics.extensions.aws.elb.ELBMonitor</impl-class>
+            <classpath>aws-application-elb-monitoring-extension.jar</classpath>
+            <impl-class>com.appdynamics.extensions.aws.applicationelb.ELBMonitor</impl-class>
         </java-task>
 
     </monitor-run-task>
