@@ -91,8 +91,8 @@ For example to report metrics only from only `AvailabilityZone` dimension with v
     
     ```
     dimensions:
-      - name: "LoadBalancerName"
-        displayName: "LoadBalancer Name"
+      - name: "LoadBalancer"
+        displayName: "Load Balancer"
         values: ["Dev", "tools"]
       - name: "AvailabilityZone"
         displayName: "AvailabilityZone"
