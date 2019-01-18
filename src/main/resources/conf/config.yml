@@ -1,13 +1,12 @@
 
 #This will create this metric in all the tiers, under this path. Please make sure to have a trailing |
-#metricPrefix: "Custom Metrics|Amazon ELB|"
+#metricPrefix: "Custom Metrics|AWS Application ELB|"
 
 #This will create it in specific Tier aka Component. Replace <COMPONENT_ID>. Please make sure to have a trailing |.
-#To find out the COMPONENT_ID, please see the screen shot here https://docs.appdynamics.com/display/PRO42/Build+a+Monitoring+Extension+Using+Java
 
-# Metric list can be found here : https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/elb-metricscollected.html
+# Metric list can be found here : https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-cloudwatch-metrics.html
 
-metricPrefix: "Server|Component:<TIER_ID>|Custom Metrics|Amazon ELB|"
+metricPrefix: "Server|Component:<TIER_ID>|Custom Metrics|AWS Application ELB|"
 
 accounts:
   - awsAccessKey: ""
@@ -31,15 +30,18 @@ proxyConfig:
   username:
   password:
 
-# Classic (namespace : "AWS/ELB")
-# Dimensions : AvailabilityZone, LoadBalancerName
+# Application (namespace : "AWS/ApplicationELB")
+# Dimensions : AvailabilityZone, LoadBalancerName & TargetGroup
 
 dimensions:
-   - name: "LoadBalancerName"
-     displayName: "Load Balancer Name"
+   - name: "LoadBalancer"
+     displayName: "Load Balancer"
      values: []
    - name: "AvailabilityZone"
      displayName: "Availability Zone"
+     values: []
+   - name: "TargetGroup"
+     displayName: "Target Group"
      values: []
 
 
@@ -54,108 +56,301 @@ metricsConfig:
     # Note: Irrespective of the metric type, value will still be reported as
     # Observed value to the Controller
     includeMetrics:
-       - name: "BackendConnectionErrors"
-         alias: "Backend Connection Errors"
-         statType: "sum"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
-         delta: false
-         multiplier: 1
-       - name: "HealthyHostCount"
-         alias: "Healthy Host Count"
+       - name: "ActiveConnectionCount"
+         alias: "Active Connection Count"
          statType: "ave"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
          delta: false
          multiplier: 1
-       - name: "HTTPCode_Backend_2XX"
-         alias: "HTTPCode_Backend_2XX"
-         statType: "sum"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
-         delta: false
-         multiplier: 1
-       - name: "HTTPCode_Backend_3XX"
-         alias: "HTTPCode_Backend_3XX"
-         statType: "sum"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
-         delta: false
-         multiplier: 1
-       - name: "HTTPCode_Backend_4XX"
-         alias: "HTTPCode_Backend_4XX"
-         statType: "sum"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
-         delta: false
-         multiplier: 1
-       - name: "HTTPCode_Backend_5XX"
-         alias: "HTTPCode_Backend_5XX"
-         statType: "sum"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
-         delta: false
-         multiplier: 1
-       - name: "HTTPCode_ELB_4XX"
-         alias: "HTTPCode_ELB_4XX"
-         statType: "sum"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
-         delta: false
-         multiplier: 1
-       - name: "HTTPCode_ELB_5XX"
-         alias: "HTTPCode_ELB_5XX"
-         statType: "sum"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
-         delta: false
-         multiplier: 1
-       - name: "Latency"
-         alias: "Latency (x1000)"
+       - name: "ClientTLSNegotiationErrorCount"
+         alias: "Client TLS Negotiation Error Count"
          statType: "ave"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
          delta: false
-         multiplier: 1000
+         multiplier: 1
+       - name: "ConsumedLCUs"
+         alias: "Consumed LCUs"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HTTP_Fixed_Response_Count"
+         alias: "HTTP Fixed Response Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HTTP_Redirect_Count"
+         alias: "HTTP Redirect Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HTTP_Redirect_Url_Limit_Exceeded_Count"
+         alias: "HTTP Redirect Url Limit Exceeded Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HTTPCode_ELB_3XX_Count"
+         alias: "HTTPCode ELB 3XX Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HTTPCode_ELB_4XX_Count"
+         alias: "HTTPCode ELB 4XX Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HTTPCode_ELB_5XX_Count"
+         alias: "HTTPCode ELB 5XX Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "IPv6ProcessedBytes"
+         alias: "IPv6 Processed Bytes"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "IPv6RequestCount"
+         alias: "IPv6 Request Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "NewConnectionCount"
+         alias: "New Connection Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "ProcessedBytes"
+         alias: "Processed Bytes"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
        - name: "RequestCount"
          alias: "Request Count"
-         statType: "sum"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
-         delta: false
-         multiplier: 1
-       - name: "SpilloverCount"
-         alias: "Spillover Count"
-         statType: "sum"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
-         delta: false
-         multiplier: 1
-       - name: "SurgeQueueLength"
-         alias: "Surge Queue Length"
          statType: "ave"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "RejectedConnectionCount"
+         alias: "Rejected ConnectionCount Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "RuleEvaluations"
+         alias: "Rule Evaluations"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "StandardProcessedBytes"
+         alias: "Standard Processed Bytes"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
          delta: false
          multiplier: 1
        - name: "UnHealthyHostCount"
          alias: "UnHealthy Host Count"
          statType: "ave"
-         aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
-         clusterRollUpType: "INDIVIDUAL"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HealthyHostCount"
+         alias: "Healthy Host Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HTTPCode_Target_2XX_Count"
+         alias: "HTTPCode_Target_2XX_Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HTTPCode_Target_3XX_Count"
+         alias: "HTTPCode_Target_3XX_Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HTTPCode_Target_4XX_Count"
+         alias: "HTTPCode_Target_4XX_Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "HTTPCode_Target_5XX_Count"
+         alias: "HTTPCode_Target_5XX_Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "NonStickyRequestCount"
+         alias: "Non Sticky Request Count"
+         statType: "sum"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "RequestCountPerTarget"
+         alias: "Request Count Per Target"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "TargetConnectionErrorCount"
+         alias: "Target Connection Error Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "TargetResponseTime"
+         alias: "Target Response Time"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "TargetTLSNegotiationErrorCount"
+         alias: "Target TLS Negotiation Error Count"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "ELBAuthError"
+         alias: "ELB Auth Error"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "ELBAuthFailure"
+         alias: "ELB Auth Failure"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "ELBAuthLatency"
+         alias: "ELB Auth Latency"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "ELBAuthSuccess"
+         alias: "ELB Auth Success"
+         statType: "ave"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "ELBAuthRefreshTokenSuccess"
+         alias: "ELB Auth Refresh Token Success"
+         statType: "sum"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "ELBAuthUserClaimsSizeExceeded"
+         alias: "ELB Auth User Claims Size Exceeded"
+         statType: "sum"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+# lambda metrics
+       - name: "LambdaInternalError"
+         alias: "Lambda Internal Error"
+         statType: "sum"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "LambdaTargetProcessedBytes"
+         alias: "Lambda Target Processed Bytes"
+         statType: "sum"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
+         delta: false
+         multiplier: 1
+       - name: "LambdaUserError"
+         alias: "Lambda User Error"
+         statType: "sum"
+         aggregationType: "OBSERVATION"
+         timeRollUpType: "CURRENT"
+         clusterRollUpType: "COLLECTIVE"
          delta: false
          multiplier: 1
 

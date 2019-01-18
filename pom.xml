@@ -9,14 +9,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.appdynamics.extensions</groupId>
-	<artifactId>aws-elb-monitoring-extension</artifactId>
-	<version>1.2</version>
-	<name>AWS ELB Monitoring Extension</name>
+	<artifactId>aws-application-elb-monitoring-extension</artifactId>
+	<version>1.0</version>
+	<name>AWS Application ELB Monitoring Extension</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-		<target.name>AWSELBMonitor</target.name>
+		<target.name>AWSApplicationELBMonitor</target.name>
 		<target.dir>${project.build.directory}/${target.name}</target.dir>
 	</properties>
 
@@ -108,7 +108,7 @@
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<manifestEntries>
-										<Implementation-Title>AWS ELB Monitor v${project.version} Build Date ${maven.build.timestamp}</Implementation-Title>
+										<Implementation-Title>AWS Application ELB Monitor v${project.version} Build Date ${maven.build.timestamp}</Implementation-Title>
 
 									</manifestEntries>
 								</transformer>
@@ -124,7 +124,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Implementation-Title>AWS ELB Monitor v${project.version} Build Date ${maven.build.timestamp}
+							<Implementation-Title>AWS Application ELB Monitor v${project.version} Build Date ${maven.build.timestamp}
 							</Implementation-Title>
 							<Main-Class>com.appdynamics.extensions.workbench.WorkbenchServerLauncher</Main-Class>
 						</manifestEntries>
@@ -216,7 +216,7 @@
 	</repositories>
 
 	<scm>
-		<connection>scm:git:https://github.com/Appdynamics/aws-elb-monitoring-extension.git</connection>
+		<connection>scm:git:https://github.com/Appdynamics/aws-application-elb-monitoring-extension.git</connection>
 	</scm>
 
 </project>

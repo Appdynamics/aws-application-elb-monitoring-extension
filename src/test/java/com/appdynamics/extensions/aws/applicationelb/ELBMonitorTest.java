@@ -6,7 +6,7 @@
  *
  */
 
-package com.appdynamics.extensions.aws.elb;
+package com.appdynamics.extensions.aws.applicationelb;
 
 import com.google.common.collect.Maps;
 import com.singularity.ee.agent.systemagent.api.TaskOutput;
