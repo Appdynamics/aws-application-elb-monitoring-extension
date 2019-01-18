@@ -3,9 +3,8 @@
 #metricPrefix: "Custom Metrics|AWS Application ELB|"
 
 #This will create it in specific Tier aka Component. Replace <COMPONENT_ID>. Please make sure to have a trailing |.
-#To find out the COMPONENT_ID, please see the screen shot here https://docs.appdynamics.com/display/PRO45/Build+a+Monitoring+Extension+Using+Java
 
-# Metric list can be found here : https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-cloudwatch-metrics.html#load-balancer-metric-dimensions-alb
+# Metric list can be found here : https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-cloudwatch-metrics.html
 
 metricPrefix: "Server|Component:<TIER_ID>|Custom Metrics|AWS Application ELB|"
 
@@ -35,8 +34,8 @@ proxyConfig:
 # Dimensions : AvailabilityZone, LoadBalancerName & TargetGroup
 
 dimensions:
-   - name: "LoadBalancerName"
-     displayName: "Load Balancer Name"
+   - name: "LoadBalancer"
+     displayName: "Load Balancer"
      values: []
    - name: "AvailabilityZone"
      displayName: "Availability Zone"
