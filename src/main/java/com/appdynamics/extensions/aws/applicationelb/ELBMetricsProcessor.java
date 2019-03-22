@@ -1,14 +1,15 @@
 /*
- * Copyright 2018. AppDynamics LLC and its affiliates.
- * All Rights Reserved.
- * This is unpublished proprietary source code of AppDynamics LLC and its affiliates.
- * The copyright notice above does not evidence any actual or intended publication of such source code.
+ *   Copyright 2019 . AppDynamics LLC and its affiliates.
+ *   All Rights Reserved.
+ *   This is unpublished proprietary source code of AppDynamics LLC and its affiliates.
+ *   The copyright notice above does not evidence any actual or intended publication of such source code.
  *
  */
 
 package com.appdynamics.extensions.aws.applicationelb;
 
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
+import com.amazonaws.services.cloudwatch.model.DimensionFilter;
 import com.appdynamics.extensions.aws.config.Dimension;
 import com.appdynamics.extensions.aws.config.IncludeMetric;
 import com.appdynamics.extensions.aws.dto.AWSMetric;
@@ -17,6 +18,7 @@ import com.appdynamics.extensions.aws.metric.StatisticType;
 import com.appdynamics.extensions.aws.metric.processors.MetricsProcessor;
 import com.appdynamics.extensions.aws.metric.processors.MetricsProcessorHelper;
 import com.appdynamics.extensions.aws.predicate.MultiDimensionPredicate;
+import com.google.common.collect.Lists;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,9 +38,11 @@ public class ELBMetricsProcessor implements MetricsProcessor {
     }
 
     public List<AWSMetric> getMetrics(AmazonCloudWatch awsCloudWatch, String accountName, LongAdder awsRequestsCounter) {
+        List<DimensionFilter> dimensionFilters = getDimensionFilters();
+
         MultiDimensionPredicate predicate = new MultiDimensionPredicate(dimensions);
         return MetricsProcessorHelper.getFilteredMetrics(awsCloudWatch, awsRequestsCounter,
-                NAMESPACE, includeMetrics, null, predicate);
+                NAMESPACE, includeMetrics, dimensionFilters, predicate);
     }
 
     public StatisticType getStatisticType(AWSMetric metric) {
@@ -58,4 +62,15 @@ public class ELBMetricsProcessor implements MetricsProcessor {
     public String getNamespace() {
         return NAMESPACE;
     }
+
+    private List<DimensionFilter> getDimensionFilters() {
+        List<DimensionFilter> dimensionFilters = Lists.newArrayList();
+        for (Dimension dimension : dimensions) {
+            DimensionFilter dbDimensionFilter = new DimensionFilter();
+            dbDimensionFilter.withName(dimension.getName());
+            dimensionFilters.add(dbDimensionFilter);
+        }
+        return dimensionFilters;
+    }
+
 }
