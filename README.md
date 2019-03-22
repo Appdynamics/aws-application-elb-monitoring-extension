@@ -200,9 +200,9 @@ Always feel free to fork and contribute any changes directly here on [GitHub](ht
 ## Version
    |          Name            |  Version   |
    |--------------------------|------------|
-   |Extension Version         |1.0         |
+   |Extension Version         |1.0.1         |
    |Controller Compatibility  |4.4 or Later|
-   |Last Update               |9th January, 2019 |
+   |Last Update               |22nd March, 2019 |
 
 List of changes to this extension can be found [here](https://github.com/Appdynamics/aws-application-elb-monitoring-extension/blob/master/CHANGELOG.md)
 
