@@ -16,6 +16,16 @@ For more details on downloading these products, please  visit [here](https://dow
 3. The extension needs to be able to connect to AWS CloudWatch in order to collect and send metrics. 
 To do this, you will have to either establish a remote connection in between the extension and the product, 
 or have an agent on the same machine running the product in order for the extension to collect and send the metrics.
+<p><strong>Agent Compatibility:</strong></p>
+<p><strong>Note: This extension is compatible with Machine Agent version 4.5.13 or later.</strong></p>
+<ol>
+<li>
+<p>If you are seeing warning messages while starting the Machine Agent, update the http-client and http-core JARs in <code>{MACHINE_AGENT_HOME}/monitorsLibs</code> to <code>httpclient-4.5.9</code> and <code>httpcore-4.4.12</code> to make this warning go away.</p>
+</li>
+<li>
+<p>To make this extension work on Machine Agent &lt; 4.5.13, the http-client and http-core JARs in <code>{MACHINE_AGENT_HOME}/monitorsLibs</code> need to be updated to <code>httpclient-4.5.9</code> and <code>httpcore-4.4.12</code>.</p>
+</li>
+</ol>
 
 ## Installation
 
@@ -200,9 +210,9 @@ Always feel free to fork and contribute any changes directly here on [GitHub](ht
 ## Version
    |          Name            |  Version   |
    |--------------------------|------------|
-   |Extension Version         |1.0.1         |
+   |Extension Version         |2.0.0         |
    |Controller Compatibility  |4.4 or Later|
-   |Last Update               |22nd March, 2019 |
+   |Last Update               |Feb 5, 2020 |
 
 List of changes to this extension can be found [here](https://github.com/Appdynamics/aws-application-elb-monitoring-extension/blob/master/CHANGELOG.md)
 

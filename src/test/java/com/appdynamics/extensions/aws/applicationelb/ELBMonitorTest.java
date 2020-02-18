@@ -10,11 +10,10 @@ package com.appdynamics.extensions.aws.applicationelb;
 
 import com.google.common.collect.Maps;
 import com.singularity.ee.agent.systemagent.api.TaskOutput;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import java.util.Map;
-
-import static org.junit.Assert.assertTrue;
 
 public class ELBMonitorTest {
 
@@ -26,7 +25,7 @@ public class ELBMonitorTest {
         args.put("config-file", "src/test/resources/conf/itest-encrypted-config.yml");
 
         TaskOutput result = classUnderTest.execute(args, null);
-        assertTrue(result.getStatusMessage().contains("Monitor {} completes."));
+        assertTrue(result.getStatusMessage().contains("Monitor ELBMonitor completes."));
 
     }
 
@@ -36,7 +35,7 @@ public class ELBMonitorTest {
         args.put("config-file", "src/test/resources/conf/itest-proxy-config.yml");
 
         TaskOutput result = classUnderTest.execute(args, null);
-        assertTrue(result.getStatusMessage().contains("Monitor {} completes."));
+        assertTrue(result.getStatusMessage().contains("Monitor ELBMonitor completes."));
     }
 
 
