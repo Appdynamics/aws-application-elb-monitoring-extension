@@ -15,9 +15,12 @@ import static com.appdynamics.extensions.aws.applicationelb.Constants.MONITOR_NA
 import com.appdynamics.extensions.aws.collectors.NamespaceMetricStatisticsCollector;
 import com.appdynamics.extensions.aws.config.Configuration;
 import com.appdynamics.extensions.aws.metric.processors.MetricsProcessor;
+import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
 import com.google.common.collect.Lists;
-import org.apache.log4j.Logger;
+import com.singularity.ee.agent.systemagent.api.exception.TaskExecutionException;
+import org.slf4j.Logger;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +29,7 @@ import java.util.Map;
  */
 public class ELBMonitor extends SingleNamespaceCloudwatchMonitor<Configuration> {
 
-    private static final Logger LOGGER = Logger.getLogger(ELBMonitor.class);
+    private static final Logger LOGGER = ExtensionsLoggerFactory.getLogger(ELBMonitor.class);
     private static final String DEFAULT_METRIC_PREFIX = String.format("%s%s%s%s", CUSTOM_METRICS, "|", AMAZON_SERVICE, "|");
 
     public ELBMonitor() {
@@ -79,5 +82,17 @@ public class ELBMonitor extends SingleNamespaceCloudwatchMonitor<Configuration> 
         return new ELBMetricsProcessor(
                 config.getMetricsConfig().getIncludeMetrics(),
                 config.getDimensions());
+    }
+
+    public static void main(String[] args) throws TaskExecutionException {
+
+        ELBMonitor monitor = new ELBMonitor();
+
+        Map<String, String> taskArgs = new HashMap<String, String>();
+
+        taskArgs.put("config-file", "/Applications/appdynamics/ma4518/monitors/AWSApplicationELBMonitor/config.yml");
+
+        monitor.execute(taskArgs, null);
+
     }
 }
