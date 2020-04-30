@@ -32,17 +32,19 @@ proxyConfig:
 
 # Application (namespace : "AWS/ApplicationELB")
 # Dimensions : AvailabilityZone, LoadBalancerName & TargetGroup
-
+# Example name : "AppLoadBalancer"
+# To get all values use : ".*"
 dimensions:
-   - name: "LoadBalancer"
-     displayName: "Load Balancer"
-     values: []
-   - name: "AvailabilityZone"
-     displayName: "Availability Zone"
-     values: []
-   - name: "TargetGroup"
-     displayName: "Target Group"
-     values: []
+  - name: "LoadBalancer"
+    displayName: "Load Balancer"
+    values: [""]
+  - name: "AvailabilityZone"
+    displayName: "Availability Zone"
+    values: [""]
+  - name: "TargetGroup"
+    displayName: "Target Group"
+    values: [""]
+
 
 
 # Global metrics config for all accounts

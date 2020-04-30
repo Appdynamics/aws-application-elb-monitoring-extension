@@ -31,7 +31,7 @@ public class ELBMetricsProcessor implements MetricsProcessor {
     private List<IncludeMetric> includeMetrics;
     private List<Dimension> dimensions;
     private static final String NAMESPACE = AWS_NAMESPACE;
-    List<DimensionFilter> dimensionFilters = getDimensionFilters();
+    List<DimensionFilter> dimensionFilters;
 
     public ELBMetricsProcessor(List<IncludeMetric> includeMetrics, List<Dimension> dimensions) {
         this.includeMetrics = includeMetrics;
@@ -40,6 +40,7 @@ public class ELBMetricsProcessor implements MetricsProcessor {
 
     public List<AWSMetric> getMetrics(AmazonCloudWatch awsCloudWatch, String accountName, LongAdder awsRequestsCounter) {
         MultiDimensionPredicate predicate = new MultiDimensionPredicate(dimensions);
+        dimensionFilters = getDimensionFilters();
         return MetricsProcessorHelper.getFilteredMetrics(awsCloudWatch, awsRequestsCounter,
                 NAMESPACE, includeMetrics, dimensionFilters, predicate);
     }

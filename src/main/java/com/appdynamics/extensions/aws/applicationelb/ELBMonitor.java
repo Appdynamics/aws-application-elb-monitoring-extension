@@ -17,8 +17,10 @@ import com.appdynamics.extensions.aws.config.Configuration;
 import com.appdynamics.extensions.aws.metric.processors.MetricsProcessor;
 import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
 import com.google.common.collect.Lists;
+import com.singularity.ee.agent.systemagent.api.exception.TaskExecutionException;
 import org.slf4j.Logger;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,5 +82,17 @@ public class ELBMonitor extends SingleNamespaceCloudwatchMonitor<Configuration> 
         return new ELBMetricsProcessor(
                 config.getMetricsConfig().getIncludeMetrics(),
                 config.getDimensions());
+    }
+
+    public static void main(String[] args) throws TaskExecutionException {
+
+        ELBMonitor monitor = new ELBMonitor();
+
+        Map<String, String> taskArgs = new HashMap<String, String>();
+
+        taskArgs.put("config-file", "/Applications/appdynamics/ma4518/monitors/AWSApplicationELBMonitor/config.yml");
+
+        monitor.execute(taskArgs, null);
+
     }
 }
