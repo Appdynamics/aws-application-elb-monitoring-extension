@@ -9,6 +9,7 @@
 package com.appdynamics.extensions.aws.applicationelb;
 
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
+import com.amazonaws.services.cloudwatch.model.DimensionFilter;
 import com.appdynamics.extensions.aws.config.Dimension;
 import com.appdynamics.extensions.aws.config.IncludeMetric;
 import com.appdynamics.extensions.aws.dto.AWSMetric;
@@ -17,6 +18,7 @@ import com.appdynamics.extensions.aws.metric.StatisticType;
 import com.appdynamics.extensions.aws.metric.processors.MetricsProcessor;
 import com.appdynamics.extensions.aws.metric.processors.MetricsProcessorHelper;
 import com.appdynamics.extensions.aws.predicate.MultiDimensionPredicate;
+import com.google.common.collect.Lists;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,7 @@ public class ELBMetricsProcessor implements MetricsProcessor {
     private List<IncludeMetric> includeMetrics;
     private List<Dimension> dimensions;
     private static final String NAMESPACE = AWS_NAMESPACE;
+    List<DimensionFilter> dimensionFilters = getDimensionFilters();
 
     public ELBMetricsProcessor(List<IncludeMetric> includeMetrics, List<Dimension> dimensions) {
         this.includeMetrics = includeMetrics;
@@ -38,7 +41,7 @@ public class ELBMetricsProcessor implements MetricsProcessor {
     public List<AWSMetric> getMetrics(AmazonCloudWatch awsCloudWatch, String accountName, LongAdder awsRequestsCounter) {
         MultiDimensionPredicate predicate = new MultiDimensionPredicate(dimensions);
         return MetricsProcessorHelper.getFilteredMetrics(awsCloudWatch, awsRequestsCounter,
-                NAMESPACE, includeMetrics, null, predicate);
+                NAMESPACE, includeMetrics, dimensionFilters, predicate);
     }
 
     public StatisticType getStatisticType(AWSMetric metric) {
@@ -53,6 +56,16 @@ public class ELBMetricsProcessor implements MetricsProcessor {
 
         return MetricsProcessorHelper.createMetricStatsMapForUpload(namespaceMetricStats,
                 dimensionToMetricPathNameDictionary, false);
+    }
+
+    private List<DimensionFilter> getDimensionFilters() {
+        List<DimensionFilter> dimensionFilters = Lists.newArrayList();
+        for (Dimension dimension : dimensions) {
+            DimensionFilter dbDimensionFilter = new DimensionFilter();
+            dbDimensionFilter.withName(dimension.getName());
+            dimensionFilters.add(dbDimensionFilter);
+        }
+        return dimensionFilters;
     }
 
     public String getNamespace() {
