@@ -1,3 +1,6 @@
+### Version 2.0.3
+* Updated to aws-cloudwatch-exts-commons 2.2.4
+
 ### Version 2.0.2
 * Updated aws-cloudwatch-exts-commons from 2.2.1 to 2.2.2
 * Updated logger
