@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.appdynamics.extensions</groupId>
 	<artifactId>aws-application-elb-monitoring-extension</artifactId>
-	<version>2.0.2</version>
+	<version>2.0.3</version>
 	<name>AWS Application ELB Monitoring Extension</name>
 
 	<properties>
@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>com.appdynamics.extensions</groupId>
 			<artifactId>aws-cloudwatch-exts-commons</artifactId>
-			<version>2.2.3</version>
+			<version>2.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -182,22 +182,6 @@
 				<configuration>
 					<tag>${project.artifactId}-${project.version}</tag>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.appdynamics.maven.plugin</groupId>
-				<artifactId>yaml-validate-maven-plugin</artifactId>
-				<version>1.0</version>
-				<configuration>
-					<yamlPath>src/main/resources/conf/config.yml</yamlPath>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

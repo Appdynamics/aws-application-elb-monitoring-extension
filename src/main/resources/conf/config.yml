@@ -413,7 +413,6 @@ controllerInfo:
   username: "user1"
   password: "welcome"
   encryptedPassword: ""
-  encryptionKey: ""
   controllerSslEnabled: false
   enableOrchestration: false
   uniqueHostId: ""
@@ -423,3 +422,6 @@ controllerInfo:
   applicationName: ""
   tierName: ""
   nodeName: ""
+
+#Encryption key for your controllerInfo password
+encryptionKey: "abcd"
